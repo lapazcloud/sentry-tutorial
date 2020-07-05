@@ -31,7 +31,8 @@ router.post('/login', (req, res) => {
   const accessToken = jwt.sign({ role: username }, JWT_SECRET, jwtOptions);
   return res.status(200).json({
     success: true,
-    accessToken
+    accessToken,
+    role: username
   });
 });
 

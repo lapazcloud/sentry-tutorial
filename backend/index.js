@@ -8,7 +8,7 @@ const port = 8000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', routes);
+app.use('/api', routes);
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
