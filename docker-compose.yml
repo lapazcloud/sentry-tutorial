@@ -1,0 +1,16 @@
+version: '3'
+services:
+  redis:
+    image: redis:5-alpine
+
+  frontend:
+    image: lapazcloud/frontend:latest
+    ports:
+    - 8000:80
+
+  backend:
+    image: lapazcloud/backend:latest
+    environment:
+    - SENTRY_DSN=''
+    - REDIS_HOST=redis
+    - JWT_SECRET=5eb1f3285e065f657b5f44b4800d7556
