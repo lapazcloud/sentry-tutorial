@@ -46,7 +46,7 @@ class ItemsContainer extends React.Component {
       <ItemsList
         items={this.state.items}
         deleteEnabled={this.props.auth.role === 'admin'}
-        onDelete={this.deleteHandler}
+        onDelet={this.deleteHandler}
       />
     </React.Fragment>
   }

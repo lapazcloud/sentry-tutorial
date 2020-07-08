@@ -3,7 +3,7 @@ import React from 'react';
 function ItemsList(props) {
   const deleteButtonHandler = (e) => {
     console.log(e.currentTarget.dataset);
-    props.onDelete && props.onDelete(e.currentTarget.dataset.itemid);
+    props.onDelete(e.currentTarget.dataset.itemid);
   }
   return (
     <table>
