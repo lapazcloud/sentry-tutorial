@@ -4,6 +4,7 @@ import './App.css';
 import { login } from './api';
 import LoginForm from './components/LoginForm';
 import ItemsContainer from './ItemsContainer';
+import * as Sentry from '@sentry/browser';
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +21,12 @@ class App extends React.Component {
       localStorage.setItem('token', result.data.accessToken);
       localStorage.setItem('role', result.data.role);
       this.setState({auth: {state: 'logged_in', token: result.accessToken, role: result.data.role}});
+      Sentry.setUser({
+        id: credentials.username,
+        username: credentials.username,
+      });
+      Sentry.setTag('role', result.data.role);
+      Sentry.setExtra('token', result.data.accessToken);
     } catch(err) {
       err.response.status === 401 && this.setState({auth: {state: 'login_failed'}});
     }
