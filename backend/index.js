@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const Sentry = require('@sentry/node');
 
 const app = express()
 const port = 8000;
@@ -10,6 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 
+Sentry.init({
+  dsn: process.env.SENTRY_DSN
+});
+
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     console.log('Error handler middleware, Unauthorized');
@@ -17,6 +22,7 @@ app.use(function (err, req, res, next) {
   }
   else {
     console.log('Error handler middleware, another error');
+    Sentry.captureException(err);
     next(err);
   }
 });
